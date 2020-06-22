@@ -21,5 +21,6 @@ This project is comprised of a form containing a leaderboard with filters based 
 This route is used to upload JSON files to the server so that their data can be displayed on the leaderboard.
 
 ### GET /boards
+Parameters: File
 This route is used to retrieve the JSON data which would be displayed on the leaderboard
 
