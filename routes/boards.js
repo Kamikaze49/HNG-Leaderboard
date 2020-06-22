@@ -2,6 +2,12 @@ var express = require('express');
 const formidable = require('formidable');
 var router = express.Router();
 
+const data = require('./../uploads/board.json');
+
+router.get('/', function (req, res) {
+  res.header("Content-Type",'application/json');
+  res.send(JSON.stringify(data));
+})
 
 
 router.post('/', function (req, res){
