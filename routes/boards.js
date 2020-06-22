@@ -2,27 +2,22 @@ var express = require('express');
 const formidable = require('formidable');
 var router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send(`
-    <h2>With <code>"express"</code> npm package</h2>
-    <form action="boards/api/upload" enctype="multipart/form-data" method="post">
-      <div>Text field title: <input type="text" name="title" /></div>
-      <div>File: <input type="file" name="someExpressFiles" multiple="multiple" /></div>
-      <input type="submit" value="Upload" />
-    </form>
-  `);
-});
- 
-router.post('/api/upload', (req, res, next) => {
-  const form = formidable({ multiples: true });
- 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      next(err);
-      return;
-    }
-    res.json({ fields, files });
+
+
+router.post('/', function (req, res){
+  var form = new formidable.IncomingForm();
+
+  form.parse(req);
+
+  form.on('fileBegin', function (name, file){
+      file.path = __dirname + '/../uploads/' + file.name;
   });
+
+  form.on('file', function (name, file){
+      console.log('Uploaded ' + file.name);
+  });
+
+  res.status(201).json({message:"File sent successfully"});
 });
 
 module.exports = router;
